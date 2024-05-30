@@ -5,10 +5,14 @@ const mongoose_1 = require("mongoose");
 const varientSchema = new mongoose_1.Schema({
     type: { type: String },
     value: { type: String },
+}, {
+    _id: false,
 });
 const inventorySchema = new mongoose_1.Schema({
     quantity: { type: Number },
     inStock: { type: Boolean },
+}, {
+    _id: false,
 });
 const productSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
