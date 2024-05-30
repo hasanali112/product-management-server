@@ -25,9 +25,15 @@ const updateProduct = async (filter: { _id: ObjectId }, update: TProduct) => {
   return result
 }
 
+const deleteProduct = async (productId: string) => {
+  const result = await ProductModel.findOneAndDelete({ _id: productId })
+  return result
+}
+
 export const productService = {
   createProduct,
   getProduct,
   getProductById,
   updateProduct,
+  deleteProduct,
 }
