@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { TProduct } from './product.interface'
 import { ProductModel } from './product.medel'
 
@@ -15,8 +16,18 @@ const getProductById = async (productId: string) => {
   return result
 }
 
+const updateProduct = async (filter: { _id: ObjectId }, update: TProduct) => {
+  const result = await ProductModel.findOneAndUpdate(filter, update, {
+    new: true,
+    runValidators: true,
+    upsert: true,
+  })
+  return result
+}
+
 export const productService = {
   createProduct,
   getProduct,
   getProductById,
+  updateProduct,
 }

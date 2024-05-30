@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import productSchemaValidation from './product.validation'
 import { productService } from './product.service'
+import { ObjectId } from 'mongodb'
 
 const productCreate = async (req: Request, res: Response) => {
   try {
@@ -56,8 +57,29 @@ const productGetById = async (req: Request, res: Response) => {
   }
 }
 
+const productUpdate = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params
+    const filter = { _id: new ObjectId(productId) }
+    const update = req.body
+    const result = await productService.updateProduct(filter, update)
+    res.status(200).json({
+      success: true,
+      message: 'Product update successfully',
+      data: result,
+    })
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message || 'Something went wrong',
+      error: error,
+    })
+  }
+}
+
 export const productController = {
   productCreate,
   productGet,
   productGetById,
+  productUpdate,
 }
