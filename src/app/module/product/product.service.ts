@@ -6,8 +6,15 @@ const createProduct = async (product: TProduct) => {
   const result = await ProductModel.create(product)
   return result
 }
-const getProduct = async () => {
-  const result = await ProductModel.find()
+const getProduct = async (searchTerm?: string) => {
+  let result
+  if (searchTerm) {
+    result = await ProductModel.find({
+      name: { $regex: searchTerm, $options: 'i' },
+    })
+  } else {
+    result = await ProductModel.find()
+  }
   return result
 }
 
