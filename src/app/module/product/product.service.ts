@@ -24,6 +24,10 @@ const getProductById = async (productId: string) => {
 }
 
 const updateProduct = async (filter: { _id: ObjectId }, update: TProduct) => {
+  const isExistingProduct = await ProductModel.findOne(filter)
+  if (!isExistingProduct) {
+    throw new Error('Product not found')
+  }
   const result = await ProductModel.findOneAndUpdate(filter, update, {
     new: true,
     runValidators: true,

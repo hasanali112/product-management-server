@@ -15,11 +15,42 @@ const createProduct = (product) => __awaiter(void 0, void 0, void 0, function* (
     const result = yield product_medel_1.ProductModel.create(product);
     return result;
 });
-const getProduct = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_medel_1.ProductModel.find();
+const getProduct = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
+    let result;
+    if (searchTerm) {
+        result = yield product_medel_1.ProductModel.find({
+            name: { $regex: searchTerm, $options: 'i' },
+        });
+    }
+    else {
+        result = yield product_medel_1.ProductModel.find();
+    }
+    return result;
+});
+const getProductById = (productId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_medel_1.ProductModel.findOne({ _id: productId });
+    return result;
+});
+const updateProduct = (filter, update) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExistingProduct = yield product_medel_1.ProductModel.findOne(filter);
+    if (!isExistingProduct) {
+        throw new Error('Product not found');
+    }
+    const result = yield product_medel_1.ProductModel.findOneAndUpdate(filter, update, {
+        new: true,
+        runValidators: true,
+        upsert: true,
+    });
+    return result;
+});
+const deleteProduct = (productId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_medel_1.ProductModel.findOneAndDelete({ _id: productId });
     return result;
 });
 exports.productService = {
     createProduct,
     getProduct,
+    getProductById,
+    updateProduct,
+    deleteProduct,
 };

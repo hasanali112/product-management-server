@@ -17,7 +17,6 @@ const productCreate = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: error.message || 'Something went wrong',
-      error: error,
     })
   }
 }
@@ -45,7 +44,6 @@ const productGet = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: error.message || 'Something went wrong',
-      error: error,
     })
   }
 }
@@ -63,7 +61,6 @@ const productGetById = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: error.message || 'Something went wrong',
-      error: error,
     })
   }
 }
@@ -76,14 +73,13 @@ const productUpdate = async (req: Request, res: Response) => {
     const result = await productService.updateProduct(filter, update)
     res.status(200).json({
       success: true,
-      message: 'Product deleted successfully!',
+      message: 'Product update successfully!',
       data: result,
     })
   } catch (error: any) {
     res.status(400).json({
       success: false,
       message: error.message || 'Something went wrong',
-      error: error,
     })
   }
 }
@@ -100,7 +96,6 @@ const productDelete = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: error.message || 'Something went wrong',
-      error: error,
     })
   }
 }

@@ -9,4 +9,7 @@ const product_controller_1 = require("./product.controller");
 const route = express_1.default.Router();
 route.post('/api/products', product_controller_1.productController.productCreate);
 route.get('/api/products', product_controller_1.productController.productGet);
+route.get('/api/products/:productId', product_controller_1.productController.productGetById);
+route.put('/api/products/:productId', product_controller_1.productController.productUpdate);
+route.delete('/api/products/:productId', product_controller_1.productController.productDelete);
 exports.productRoutes = route;
