@@ -21,17 +21,23 @@ const createOrder = async (req: Request, res: Response) => {
 }
 const getOrder = async (req: Request, res: Response) => {
   try {
-    const result = await orderService.productget()
+    const email = req.query.email as string
+    let result
+    if (email) {
+      result = await orderService.productget(email)
+    } else {
+      result = await orderService.productget()
+    }
+
     res.status(200).json({
       success: true,
       message: 'Orders fetched successfully!',
       data: result,
     })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({
       success: false,
-      message: 'Something went wrong!',
-      data: error,
+      message: error.message || 'Something went wrong!',
     })
   }
 }

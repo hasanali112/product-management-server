@@ -20,8 +20,17 @@ const productCreate = async (order: TOrder) => {
   return result
 }
 
-const productget = async () => {
-  const result = await OrderModel.find()
+const productget = async (email?: string) => {
+  let result
+  if (email) {
+    result = await OrderModel.find({ email: { $regex: email, $options: 'i' } })
+    if (result.length === 0) {
+      throw new Error('Order not found')
+    }
+  } else {
+    result = await OrderModel.find()
+  }
+
   return result
 }
 
