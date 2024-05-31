@@ -76,7 +76,7 @@ const productUpdate = async (req: Request, res: Response) => {
     const result = await productService.updateProduct(filter, update)
     res.status(200).json({
       success: true,
-      message: 'Product update successfully',
+      message: 'Product deleted successfully!',
       data: result,
     })
   } catch (error: any) {
